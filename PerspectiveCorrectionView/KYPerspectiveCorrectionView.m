@@ -31,10 +31,10 @@
 }
 
 - (UIImage *)perspectiveCorrection {
-    CGPoint topLeft = [self scaleCuttingPoint:[self.imageView convertPoint:self.KYInterceptorIndicator.topLeft fromView:self.KYInterceptorIndicator]];
-    CGPoint topRight = [self scaleCuttingPoint:[self.imageView convertPoint:self.KYInterceptorIndicator.topRight fromView:self.KYInterceptorIndicator]];
-    CGPoint bottomLeft = [self scaleCuttingPoint:[self.imageView convertPoint:self.KYInterceptorIndicator.bottomLeft fromView:self.KYInterceptorIndicator]];
-    CGPoint bottomRight = [self scaleCuttingPoint:[self.imageView convertPoint:self.KYInterceptorIndicator.bottomRight fromView:self.KYInterceptorIndicator]];
+    CGPoint topLeft = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[0] center] fromView:self.KYInterceptorIndicator]];
+    CGPoint bottomLeft = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[1] center] fromView:self.KYInterceptorIndicator]];
+    CGPoint bottomRight = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[2] center] fromView:self.KYInterceptorIndicator]];
+    CGPoint topRight = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[3] center] fromView:self.KYInterceptorIndicator]];
     
     UIImage *image = [KYPerspectiveCorrectionHelper perspectiveCorrectWithImage:self.imageView.image topLeft:topLeft bottomLeft:bottomLeft bottomRight:bottomRight topRight:topRight];
     
