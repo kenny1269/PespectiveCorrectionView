@@ -18,7 +18,7 @@
 
 @property (nonatomic, assign) CGRect interceptBounds;
 
-@property (nonatomic, strong) NSMutableArray *realButtons;
+@property (nonatomic, strong) NSMutableArray *buttons;
 
 @end
 
@@ -38,7 +38,7 @@
     
     CGContextBeginPath(context);
     
-    CGPoint addLines[5] = {[self.realButtons[0] center], [self.realButtons[1] center], [self.realButtons[2] center], [self.realButtons[3] center], [self.realButtons[0] center]};
+    CGPoint addLines[5] = {[self.buttons[0] center], [self.buttons[1] center], [self.buttons[2] center], [self.buttons[3] center], [self.buttons[0] center]};
     
     CGContextAddLines(context, addLines, 5);
     CGContextClosePath(context);
@@ -55,22 +55,22 @@
     _interceptBounds = bounds;
     
     {
-        UIButton *button = self.realButtons[0];
+        UIButton *button = self.buttons[0];
         button.center = bounds.origin;
     }
     
     {
-        UIButton *button = self.realButtons[1];
+        UIButton *button = self.buttons[1];
         button.center = CGPointMake(bounds.origin.x, CGRectGetMaxY(bounds));
     }
     
     {
-        UIButton *button = self.realButtons[2];
+        UIButton *button = self.buttons[2];
         button.center = CGPointMake(CGRectGetMaxX(bounds), CGRectGetMaxY(bounds));
     }
     
     {
-        UIButton *button = self.realButtons[3];
+        UIButton *button = self.buttons[3];
         button.center = CGPointMake(CGRectGetMaxX(bounds), bounds.origin.y);
     }
 }
@@ -109,7 +109,7 @@
             CGPoint lastCenter = self.activeButton.center;
             self.activeButton.center = location;
             
-            BOOL validate = [self.class validateQuadrilateralWithOppositeVertex1:[self.realButtons[0] center] vertex2:[self.realButtons[2] center] theOtherOppositeVertex3:[self.realButtons[1] center] vertex4:[self.realButtons[3] center]];
+            BOOL validate = [self.class validateQuadrilateralWithOppositeVertex1:[self.buttons[0] center] vertex2:[self.buttons[2] center] theOtherOppositeVertex3:[self.buttons[1] center] vertex4:[self.buttons[3] center]];
             
             if (validate) {
                 [self setNeedsDisplay];
@@ -162,7 +162,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint location = [gestureRecognizer locationInView:self];
-    for (UIView *button in self.realButtons) {
+    for (UIView *button in self.buttons) {
         if (CGRectContainsPoint(CGRectInset(button.frame, -20, -20), location)) {
             self.activeButton = button;
             return YES;
@@ -182,51 +182,51 @@
     return _pan;
 }
 
-- (NSMutableArray *)realButtons  {
-    if (!_realButtons) {
-        _realButtons = [NSMutableArray array];
+- (NSMutableArray *)buttons  {
+    if (!_buttons) {
+        _buttons = [NSMutableArray array];
         for (NSInteger i = 0; i < 4; i++) {
             UIView *button = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
             button.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
             button.layer.cornerRadius = 10;
             button.layer.masksToBounds = YES;
-            [_realButtons addObject:button];
+            [_buttons addObject:button];
             [self addSubview:button];
         }
     }
-    return _realButtons;
+    return _buttons;
 }
 
 - (CGPoint)topLeft {
-    return CGPointMake([self.realButtons[0] center].x - self.interceptBounds.origin.x, [self.realButtons[0] center].y - self.interceptBounds.origin.y);
+    return CGPointMake([self.buttons[0] center].x - self.interceptBounds.origin.x, [self.buttons[0] center].y - self.interceptBounds.origin.y);
 }
 
 - (CGPoint)bottomLeft {
-    return CGPointMake([self.realButtons[1] center].x - self.interceptBounds.origin.x, [self.realButtons[1] center].y - self.interceptBounds.origin.y);
+    return CGPointMake([self.buttons[1] center].x - self.interceptBounds.origin.x, [self.buttons[1] center].y - self.interceptBounds.origin.y);
 }
 
 - (CGPoint)bottomRight {
-    return CGPointMake([self.realButtons[2] center].x - self.interceptBounds.origin.x, [self.realButtons[2] center].y - self.interceptBounds.origin.y);
+    return CGPointMake([self.buttons[2] center].x - self.interceptBounds.origin.x, [self.buttons[2] center].y - self.interceptBounds.origin.y);
 }
 
 - (CGPoint)topRight {
-    return CGPointMake([self.realButtons[3] center].x - self.interceptBounds.origin.x, [self.realButtons[3] center].y - self.interceptBounds.origin.y);
+    return CGPointMake([self.buttons[3] center].x - self.interceptBounds.origin.x, [self.buttons[3] center].y - self.interceptBounds.origin.y);
 }
 
 - (void)setTopLeft:(CGPoint)topLeft {
-    [self.realButtons[0] setCenter:CGPointMake(topLeft.x + self.interceptBounds.origin.x, topLeft.y + self.interceptBounds.origin.y)];
+    [self.buttons[0] setCenter:CGPointMake(topLeft.x + self.interceptBounds.origin.x, topLeft.y + self.interceptBounds.origin.y)];
 }
 
 - (void)setBottomLeft:(CGPoint)bottomLeft {
-    [self.realButtons[1] setCenter:CGPointMake(bottomLeft.x + self.interceptBounds.origin.x, bottomLeft.y + self.interceptBounds.origin.y)];
+    [self.buttons[1] setCenter:CGPointMake(bottomLeft.x + self.interceptBounds.origin.x, bottomLeft.y + self.interceptBounds.origin.y)];
 }
 
 - (void)setBottomRight:(CGPoint)bottomRight {
-    [self.realButtons[2] setCenter:CGPointMake(bottomRight.x + self.interceptBounds.origin.x, bottomRight.y + self.interceptBounds.origin.y)];
+    [self.buttons[2] setCenter:CGPointMake(bottomRight.x + self.interceptBounds.origin.x, bottomRight.y + self.interceptBounds.origin.y)];
 }
 
 - (void)setTopRight:(CGPoint)topRight {
-    [self.realButtons[3] setCenter:CGPointMake(topRight.x + self.interceptBounds.origin.x, topRight.y + self.interceptBounds.origin.y)];
+    [self.buttons[3] setCenter:CGPointMake(topRight.x + self.interceptBounds.origin.x, topRight.y + self.interceptBounds.origin.y)];
 }
 
 @end
