@@ -22,7 +22,10 @@
 
 @property (nonatomic, weak) id <KYInterceptorIndicatorDelegate> delegate;
 
-@property (nonatomic, copy) NSArray *vertexes; //vertexes ordered in topleft, bottomleft, bottomright, topright
+@property (nonatomic, assign) CGPoint topLeft;
+@property (nonatomic, assign) CGPoint bottomLeft;
+@property (nonatomic, assign) CGPoint bottomRight;
+@property (nonatomic, assign) CGPoint topRight;
 
 - (void)setInterceptBounds:(CGRect)bounds;
 

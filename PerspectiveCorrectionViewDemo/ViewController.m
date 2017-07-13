@@ -24,6 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.KYPerspectiveCorrectionView.enableRectangleDetection = YES;
     [self.KYPerspectiveCorrectionView setImage:[UIImage imageNamed:@"1.jpg"]];
 }
 

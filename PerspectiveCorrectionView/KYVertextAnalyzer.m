@@ -8,36 +8,49 @@
 
 #import "KYVertextAnalyzer.h"
 
+#import "UIImage+Rotate.h"
+
 @implementation KYVertextAnalyzer
 
-+ (BOOL)validateVertexesOfQuadrilateralWithOppositeVertex1:(CGPoint)vertex1 vertex2:(CGPoint)vertex2 theOtherOppositeVertex3:(CGPoint)vertex3 vertex4:(CGPoint)vertex4 {
-    float slope1 = (vertex1.y - vertex2.y) / (vertex1.x - vertex2.x);
-    float slope2 = (vertex3.y - vertex4.y) / (vertex3.x - vertex4.x);
++ (CIRectangleFeature *)analyseRectangleInImage:(UIImage *)image {
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeRectangle context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
     
-    float k1 = (vertex2.y * vertex1.x - vertex1.y * vertex2.x) / (vertex1.x - vertex2.x);
-    float k2 = (vertex4.y * vertex3.x - vertex3.y * vertex4.x) / (vertex3.x - vertex4.x);
+    CIImage *sourceImage = [[CIImage alloc] initWithCGImage:[image fixOrientation].CGImage];
     
-    float intersectX = (k2 - k1) / (slope1 - slope2);
-    float intersectY = (slope1 * k2 - slope2 * k1) / (slope1 - slope2);
+    CIFilter *transform = [CIFilter filterWithName:@"CIAffineTransform"];
+    [transform setValue:sourceImage forKey:kCIInputImageKey];
+    NSValue *rotation = [NSValue valueWithCGAffineTransform:CGAffineTransformMake(1, 0, 0, -1, 0, sourceImage.extent.size.height)];
+    [transform setValue:rotation forKey:@"inputTransform"];
+    sourceImage = [transform outputImage];
     
-    float atan1 = atan(vertex1.y / vertex1.x);
-    float atan2 = atan(vertex2.y / vertex2.x);
-    float atan3 = atan(vertex3.y / vertex3.x);
-    float atan4 = atan(vertex4.y / vertex4.x);
-    float atanIntersect = atan(intersectY / intersectX);
+    NSArray *rectangles = [detector featuresInImage:sourceImage];
     
-    BOOL validate1 = NO;
-    BOOL validate2 = NO;
+    if (![rectangles count]) return nil;
     
-    if ((atan1 < atanIntersect && atanIntersect < atan2) || (atan2 < atanIntersect && atanIntersect < atan1)) {
-        validate1 = YES;
+    float halfPerimiterValue = 0;
+    
+    CIRectangleFeature *biggestRectangle = [rectangles firstObject];
+    
+    for (CIRectangleFeature *rect in rectangles)
+    {
+        CGPoint p1 = rect.topLeft;
+        CGPoint p2 = rect.topRight;
+        CGFloat width = hypotf(p1.x - p2.x, p1.y - p2.y);
+        
+        CGPoint p3 = rect.topLeft;
+        CGPoint p4 = rect.bottomLeft;
+        CGFloat height = hypotf(p3.x - p4.x, p3.y - p4.y);
+        
+        CGFloat currentHalfPerimiterValue = height + width;
+        
+        if (halfPerimiterValue < currentHalfPerimiterValue)
+        {
+            halfPerimiterValue = currentHalfPerimiterValue;
+            biggestRectangle = rect;
+        }
     }
     
-    if ((atan3 < atanIntersect && atanIntersect < atan4) || (atan4 < atanIntersect && atanIntersect < atan3)) {
-        validate2 = YES;
-    }
-    
-    return validate1 && validate2;
+    return biggestRectangle;
 }
 
 @end

@@ -10,15 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, PointPositionType) {
-    PointPositionTypeTopLeft,
-    PointPositionTypeBottomLeft,
-    PointPositionTypeTopRight,
-    PointPositionTypeBottomRight
-};
-
 @interface KYVertextAnalyzer : NSObject
 
-+ (BOOL)validateVertexesOfQuadrilateralWithOppositeVertex1:(CGPoint)vertex1 vertex2:(CGPoint)vertex2 theOtherOppositeVertex3:(CGPoint)vertex3 vertex4:(CGPoint)vertex4;
++ (CIRectangleFeature *)analyseRectangleInImage:(UIImage *)image;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "KYPerspectiveCorrectionView.h"
 #import "KYInterceptorIndicator.h"
+#import "KYVertextAnalyzer.h"
 
 #import "KYPerspectiveCorrectionHelper.h"
 
@@ -22,24 +23,6 @@
 @end
 
 @implementation KYPerspectiveCorrectionView
-
-- (void)setImage:(UIImage *)image {
-    self.imageView.image = image;
-    
-    [self setNeedsLayout];
-    [self.KYInterceptorIndicator setNeedsDisplay];
-}
-
-- (UIImage *)perspectiveCorrection {
-    CGPoint topLeft = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[0] center] fromView:self.KYInterceptorIndicator]];
-    CGPoint bottomLeft = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[1] center] fromView:self.KYInterceptorIndicator]];
-    CGPoint bottomRight = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[2] center] fromView:self.KYInterceptorIndicator]];
-    CGPoint topRight = [self scaleCuttingPoint:[self.imageView convertPoint:[self.KYInterceptorIndicator.vertexes[3] center] fromView:self.KYInterceptorIndicator]];
-    
-    UIImage *image = [KYPerspectiveCorrectionHelper perspectiveCorrectWithImage:self.imageView.image topLeft:topLeft bottomLeft:bottomLeft bottomRight:bottomRight topRight:topRight];
-    
-    return image;
-}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -60,6 +43,39 @@
     self.imageView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     
     [self.KYInterceptorIndicator setInterceptBounds:self.imageView.frame];
+    
+    if (self.enableRectangleDetection) {
+        CIRectangleFeature *rectangle = [KYVertextAnalyzer analyseRectangleInImage:self.imageView.image];
+        if (rectangle) {
+            CGFloat factor = self.imageView.frame.size.width / self.imageView.image.size.width;
+            
+            self.KYInterceptorIndicator.topLeft = [self scalePoint:rectangle.bottomLeft withFactor:factor];
+            self.KYInterceptorIndicator.bottomLeft = [self scalePoint:rectangle.topLeft withFactor:factor];
+            self.KYInterceptorIndicator.bottomRight = [self scalePoint:rectangle.topRight withFactor:factor];
+            self.KYInterceptorIndicator.topRight = [self scalePoint:rectangle.bottomRight withFactor:factor];
+        }
+    }
+}
+
+- (void)setImage:(UIImage *)image {
+    self.imageView.image = image;
+    
+    [self setNeedsLayout];
+    
+    [self.KYInterceptorIndicator setNeedsDisplay];
+}
+
+- (UIImage *)perspectiveCorrection {
+    CGFloat factor = self.imageView.image.size.width / self.imageView.frame.size.width;
+    
+    CGPoint topLeft = [self scalePoint:self.KYInterceptorIndicator.topLeft withFactor:factor];
+    CGPoint bottomLeft = [self scalePoint:self.KYInterceptorIndicator.bottomLeft withFactor:factor];
+    CGPoint bottomRight = [self scalePoint:self.KYInterceptorIndicator.bottomRight withFactor:factor];
+    CGPoint topRight = [self scalePoint:self.KYInterceptorIndicator.topRight withFactor:factor];
+    
+    UIImage *image = [KYPerspectiveCorrectionHelper perspectiveCorrectWithImage:self.imageView.image topLeft:topLeft bottomLeft:bottomLeft bottomRight:bottomRight topRight:topRight];
+    
+    return image;
 }
 
 #pragma mark - KYInterceptorIndicatorDelegate
@@ -99,11 +115,8 @@
 
 #pragma mark - private
 
-- (CGPoint)scaleCuttingPoint:(CGPoint)point {
-    CGFloat xScale = self.imageView.image.size.width / self.imageView.frame.size.width;
-    CGFloat yScale = self.imageView.image.size.height / self.imageView.frame.size.height;
-    
-    return CGPointMake(point.x * xScale, point.y * yScale);
+- (CGPoint)scalePoint:(CGPoint)point withFactor:(CGFloat)factor {
+    return CGPointMake(point.x * factor, point.y * factor);
 }
 
 #pragma mark -

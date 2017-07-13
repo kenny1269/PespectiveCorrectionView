@@ -10,6 +10,8 @@
 
 @interface KYPerspectiveCorrectionView : UIView
 
+@property (nonatomic, assign) BOOL enableRectangleDetection;
+
 - (void)setImage:(UIImage *)image;
 
 - (UIImage *)perspectiveCorrection;
