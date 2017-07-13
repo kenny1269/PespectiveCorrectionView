@@ -1,16 +1,16 @@
 //
-//  KYVertextAnalyzer.m
-//  DetectTest
+//  KYRectangleAnalyzer.m
+//  PerspectiveCorrectionViewDemo
 //
-//  Created by mac on 2017/6/30.
+//  Created by mac on 2017/7/13.
 //  Copyright © 2017年 ky1269. All rights reserved.
 //
 
-#import "KYVertextAnalyzer.h"
+#import "KYRectangleAnalyzer.h"
 
 #import "UIImage+Rotate.h"
 
-@implementation KYVertextAnalyzer
+@implementation KYRectangleAnalyzer
 
 + (CIRectangleFeature *)analyseRectangleInImage:(UIImage *)image {
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeRectangle context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];

@@ -8,7 +8,7 @@
 
 #import "KYPerspectiveCorrectionView.h"
 #import "KYInterceptorIndicator.h"
-#import "KYVertextAnalyzer.h"
+#import "KYRectangleAnalyzer.h"
 
 #import "KYPerspectiveCorrectionHelper.h"
 
@@ -45,7 +45,7 @@
     [self.KYInterceptorIndicator setInterceptBounds:self.imageView.frame];
     
     if (self.enableRectangleDetection) {
-        CIRectangleFeature *rectangle = [KYVertextAnalyzer analyseRectangleInImage:self.imageView.image];
+        CIRectangleFeature *rectangle = [KYRectangleAnalyzer analyseRectangleInImage:self.imageView.image];
         if (rectangle) {
             CGFloat factor = self.imageView.frame.size.width / self.imageView.image.size.width;
             

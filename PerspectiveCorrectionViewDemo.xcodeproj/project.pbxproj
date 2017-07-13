@@ -15,12 +15,12 @@
 		040FA9A51F16059900C1C7AD /* KYInterceptorIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA99C1F16059900C1C7AD /* KYInterceptorIndicator.m */; };
 		040FA9A61F16059900C1C7AD /* KYPerspectiveCorrectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA99E1F16059900C1C7AD /* KYPerspectiveCorrectionHelper.m */; };
 		040FA9A71F16059900C1C7AD /* KYPerspectiveCorrectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A01F16059900C1C7AD /* KYPerspectiveCorrectionView.m */; };
-		040FA9A81F16059900C1C7AD /* KYVertextAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A21F16059900C1C7AD /* KYVertextAnalyzer.m */; };
 		040FA9A91F16059900C1C7AD /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9A41F16059900C1C7AD /* UIImage+Rotate.m */; };
 		040FA9AB1F1606CA00C1C7AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040FA9AA1F1606CA00C1C7AD /* Main.storyboard */; };
 		040FA9AD1F16072B00C1C7AD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9AC1F16072B00C1C7AD /* ViewController.m */; };
 		040FA9B01F16076B00C1C7AD /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FA9AF1F16076B00C1C7AD /* ResultViewController.m */; };
 		040FA9B21F160D7900C1C7AD /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 040FA9B11F160D7900C1C7AD /* 1.jpg */; };
+		04C834CC1F1729B600A0B6D6 /* KYRectangleAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C834CB1F1729B600A0B6D6 /* KYRectangleAnalyzer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +51,6 @@
 		040FA99E1F16059900C1C7AD /* KYPerspectiveCorrectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYPerspectiveCorrectionHelper.m; sourceTree = "<group>"; };
 		040FA99F1F16059900C1C7AD /* KYPerspectiveCorrectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYPerspectiveCorrectionView.h; sourceTree = "<group>"; };
 		040FA9A01F16059900C1C7AD /* KYPerspectiveCorrectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYPerspectiveCorrectionView.m; sourceTree = "<group>"; };
-		040FA9A11F16059900C1C7AD /* KYVertextAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYVertextAnalyzer.h; sourceTree = "<group>"; };
-		040FA9A21F16059900C1C7AD /* KYVertextAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYVertextAnalyzer.m; sourceTree = "<group>"; };
 		040FA9A31F16059900C1C7AD /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		040FA9A41F16059900C1C7AD /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		040FA9AA1F1606CA00C1C7AD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +58,8 @@
 		040FA9AE1F16076B00C1C7AD /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		040FA9AF1F16076B00C1C7AD /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		040FA9B11F160D7900C1C7AD /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		04C834CA1F1729B600A0B6D6 /* KYRectangleAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KYRectangleAnalyzer.h; sourceTree = "<group>"; };
+		04C834CB1F1729B600A0B6D6 /* KYRectangleAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KYRectangleAnalyzer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +144,8 @@
 				040FA99E1F16059900C1C7AD /* KYPerspectiveCorrectionHelper.m */,
 				040FA99F1F16059900C1C7AD /* KYPerspectiveCorrectionView.h */,
 				040FA9A01F16059900C1C7AD /* KYPerspectiveCorrectionView.m */,
-				040FA9A11F16059900C1C7AD /* KYVertextAnalyzer.h */,
-				040FA9A21F16059900C1C7AD /* KYVertextAnalyzer.m */,
+				04C834CA1F1729B600A0B6D6 /* KYRectangleAnalyzer.h */,
+				04C834CB1F1729B600A0B6D6 /* KYRectangleAnalyzer.m */,
 				040FA9A31F16059900C1C7AD /* UIImage+Rotate.h */,
 				040FA9A41F16059900C1C7AD /* UIImage+Rotate.m */,
 			);
@@ -258,10 +258,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				040FA97A1F16054500C1C7AD /* AppDelegate.m in Sources */,
-				040FA9A81F16059900C1C7AD /* KYVertextAnalyzer.m in Sources */,
 				040FA9AD1F16072B00C1C7AD /* ViewController.m in Sources */,
 				040FA9771F16054500C1C7AD /* main.m in Sources */,
 				040FA9A51F16059900C1C7AD /* KYInterceptorIndicator.m in Sources */,
+				04C834CC1F1729B600A0B6D6 /* KYRectangleAnalyzer.m in Sources */,
 				040FA9A61F16059900C1C7AD /* KYPerspectiveCorrectionHelper.m in Sources */,
 				040FA9A91F16059900C1C7AD /* UIImage+Rotate.m in Sources */,
 				040FA9A71F16059900C1C7AD /* KYPerspectiveCorrectionView.m in Sources */,
