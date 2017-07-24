@@ -8,12 +8,10 @@
 
 #import "KYPerspectiveCorrectionHelper.h"
 
-#import "UIImage+Rotate.h"
-
 @implementation KYPerspectiveCorrectionHelper
 
 + (UIImage *)perspectiveCorrectWithImage:(UIImage *)image topLeft:(CGPoint)topLeft bottomLeft:(CGPoint)bottomLeft bottomRight:(CGPoint)bottomRight topRight:(CGPoint)topRight {
-    CIImage *sourceImage = [[CIImage alloc] initWithCGImage:[image fixOrientation].CGImage];
+    CIImage *sourceImage = [[CIImage alloc] initWithCGImage:image.CGImage];
     
     CIFilter *transform = [CIFilter filterWithName:@"CIAffineTransform"];
     [transform setValue:sourceImage forKey:kCIInputImageKey];

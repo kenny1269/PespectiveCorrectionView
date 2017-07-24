@@ -8,14 +8,12 @@
 
 #import "KYRectangleAnalyzer.h"
 
-#import "UIImage+Rotate.h"
-
 @implementation KYRectangleAnalyzer
 
 + (CIRectangleFeature *)analyseRectangleInImage:(UIImage *)image {
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeRectangle context:nil options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
     
-    CIImage *sourceImage = [[CIImage alloc] initWithCGImage:[image fixOrientation].CGImage];
+    CIImage *sourceImage = [[CIImage alloc] initWithCGImage:image.CGImage];
     
     CIFilter *transform = [CIFilter filterWithName:@"CIAffineTransform"];
     [transform setValue:sourceImage forKey:kCIInputImageKey];

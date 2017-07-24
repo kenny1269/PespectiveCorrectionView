@@ -12,6 +12,8 @@
 
 #import "KYPerspectiveCorrectionView.h"
 
+#import "UIImage+Rotate.h"
+
 @interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet KYPerspectiveCorrectionView *KYPerspectiveCorrectionView;
 
@@ -48,7 +50,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self.KYPerspectiveCorrectionView setImage:image];
+    [self.KYPerspectiveCorrectionView setImage:[image fixOrientation]];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
